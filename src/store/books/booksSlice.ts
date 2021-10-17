@@ -8,17 +8,53 @@ interface Book {
   publisher: string;
   importedDate: Date;
   bookLocation: string;
+  category: string;
   isbn: string;
 }
 
 interface Books {
+  currentCategory: "",
   searchByName: string;
-  bookList: Book[]
+  bookList: Book[];
+  categories: string[]
 }
 
 const initialState: Books = {
+  currentCategory: '',
   searchByName: '',
-  bookList: []
+  categories: ['Energy Industry Consult', 'Inspiration'],
+  bookList: [
+    {
+      id: 'EIC0001',
+      name: '2019年中国电力行业投资报告',
+      author: '南方电网 能源发展研究院',
+      publisher: '中国电力出版社',
+      importedDate: new Date('2021-7-12'),
+      bookLocation: '2',
+      category: 'Energy Industry Consult',
+      isbn: '9787519840846'
+    },
+    {
+      id: 'EIC0002',
+      name: '2019年全球水电行业年度发展报告',
+      author: '国家水电可持续发展 研究中心',
+      publisher: '中国水利水电出版社',
+      importedDate: new Date('2021-7-12'),
+      bookLocation: '2',
+      category: 'Energy Industry Consult',
+      isbn: '9787517089216'
+    },
+    {
+      id: 'In0001',
+      name: 'Sex & The Psych',
+      author: 'Brett Kahr',
+      publisher: '华东师范大学出版社',
+      importedDate: new Date('2021-7-12'),
+      bookLocation: '1',
+      category: 'Inspiration',
+      isbn: '9780141024844'
+    }
+  ]
 }
 export const booksSlice = createSlice({
   name: 'books',
@@ -34,12 +70,25 @@ export const booksSlice = createSlice({
 export const { addBook } = booksSlice.actions;
 
 // selectors
-export const bookListSelector = (state: RootState): Book[] => state.books.bookList;
-const searchByNameSelector = (state: RootState): string => state.books.searchByName;
+const selectBookList = (state: RootState): Book[] => state.books.bookList;
+export const selectBookCategories = (state: RootState): string[] => state.books.categories;
+export const selectCurrentCategory = (state: RootState): string => state.books.currentCategory;
+const selectSearchByName = (state: RootState): string => state.books.searchByName;
 
-export const selectBookByName = createSelector(
-  bookListSelector,
-  searchByNameSelector,
+export const selectBooksByCategory = createSelector(
+  selectBookList,
+  selectCurrentCategory,
+  (bookList, currentCategory) => {
+    if(currentCategory === '' || currentCategory === 'All') {
+      return bookList;
+    } else {
+      bookList.filter((b) => b.category !== currentCategory)
+    }
+  }
+)
+export const selectBooksByName = createSelector(
+  selectBookList,
+  selectSearchByName,
   (bookList, searchByName) => {
     bookList.filter(b => b.name.includes(searchByName))
   }

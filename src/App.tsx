@@ -1,5 +1,5 @@
 import './App.css';
-import SiteRouter from './SiteRouter';
+import SiteRouter from './components/SiteRouter';
 
 function App() {
   return (

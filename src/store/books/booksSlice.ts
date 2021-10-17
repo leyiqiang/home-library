@@ -8,6 +8,7 @@ interface Book {
   publisher: string;
   importedDate: Date;
   bookLocation: string;
+  isbn: string;
 }
 
 interface Books {
@@ -29,8 +30,10 @@ export const booksSlice = createSlice({
   }
 })
 
+// actions
 export const { addBook } = booksSlice.actions;
 
+// selectors
 export const bookListSelector = (state: RootState): Book[] => state.books.bookList;
 const searchByNameSelector = (state: RootState): string => state.books.searchByName;
 
@@ -42,5 +45,6 @@ export const selectBookByName = createSelector(
   }
 )
 
+// reducer
 export default booksSlice.reducer;
 

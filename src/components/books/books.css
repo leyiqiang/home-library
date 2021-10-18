@@ -1,19 +1,13 @@
-
 @media (min-width: 851px) {
 
 }
 
 @media (max-width: 850px) {
 
-  .booksFilter {
-    width: 95%;
-    flex-basis: 100%;
-    box-sizing: content-box;
-  }
+
 }
 
-.flex1 {
-  flex: 1 1 auto;
-  box-sizing: content-box;
+.bookFilter.dropdown-menu {
+  z-index: 0;
+  position: relative;
 }
-

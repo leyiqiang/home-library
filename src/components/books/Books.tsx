@@ -12,10 +12,10 @@ const Books = () => {
         <h1 className="headerNav">Books</h1>
       </Row>
       <Row>
-        <Col sm={12} md={4} className='flex-shrink-0'>
+        <Col sm={12} md={4}>
           <Filters/>
         </Col>
-        <Col sm={12} md={8} className='flex-shrink-0'>
+        <Col sm={12} md={8}>
           <div>
           <h1> Books Component</h1>
           </div>

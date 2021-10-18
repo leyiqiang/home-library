@@ -6,14 +6,14 @@ interface Book {
   name: string;
   author: string;
   publisher: string;
-  importedDate: Date;
+  importedDate: string;
   bookLocation: string;
   category: string;
   isbn: string;
 }
 
 interface Books {
-  currentCategory: "",
+  currentCategory: string,
   searchByName: string;
   bookList: Book[];
   categories: string[]
@@ -29,7 +29,7 @@ const initialState: Books = {
       name: '2019年中国电力行业投资报告',
       author: '南方电网 能源发展研究院',
       publisher: '中国电力出版社',
-      importedDate: new Date('2021-7-12'),
+      importedDate: '2021-7-12',
       bookLocation: '2',
       category: 'Energy Industry Consult',
       isbn: '9787519840846'
@@ -39,7 +39,7 @@ const initialState: Books = {
       name: '2019年全球水电行业年度发展报告',
       author: '国家水电可持续发展 研究中心',
       publisher: '中国水利水电出版社',
-      importedDate: new Date('2021-7-12'),
+      importedDate: '2021-7-12',
       bookLocation: '2',
       category: 'Energy Industry Consult',
       isbn: '9787517089216'
@@ -49,7 +49,7 @@ const initialState: Books = {
       name: 'Sex & The Psych',
       author: 'Brett Kahr',
       publisher: '华东师范大学出版社',
-      importedDate: new Date('2021-7-12'),
+      importedDate: '2021-7-12',
       bookLocation: '1',
       category: 'Inspiration',
       isbn: '9780141024844'
@@ -62,12 +62,15 @@ export const booksSlice = createSlice({
   reducers: {
     addBook: (state, action: PayloadAction<Book>) => {
       state.bookList.push(action.payload);
+    },
+    setCurrentCategory: (state, action: PayloadAction<string>) => {
+      state.currentCategory = action.payload;
     }
   }
 })
 
 // actions
-export const { addBook } = booksSlice.actions;
+export const { addBook, setCurrentCategory } = booksSlice.actions;
 
 // selectors
 const selectBookList = (state: RootState): Book[] => state.books.bookList;
@@ -79,7 +82,7 @@ export const selectBooksByCategory = createSelector(
   selectBookList,
   selectCurrentCategory,
   (bookList, currentCategory) => {
-    if(currentCategory === '' || currentCategory === 'All') {
+    if (currentCategory === '' || currentCategory === 'All') {
       return bookList;
     } else {
       bookList.filter((b) => b.category !== currentCategory)

@@ -1,11 +1,9 @@
-import { useSelector } from 'react-redux';
-import { selectBooksByCategory } from '../../store/books/booksSlice';
 import Filters from './Filters';
 import './books.css'
 import { Container, Row, Col } from 'react-bootstrap';
+import BookList from './BookList';
 
 const Books = () => {
-  const bookListByCategory = useSelector(selectBooksByCategory);
   return (
     <Container>
       <Row>
@@ -17,12 +15,11 @@ const Books = () => {
         </Col>
         <Col sm={12} md={8}>
           <div>
-          <h1> Books Component</h1>
+            <BookList/>
           </div>
         </Col>
       </Row>
     </Container>
-
   )
 }
 

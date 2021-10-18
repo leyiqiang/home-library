@@ -81,20 +81,19 @@ const selectSearchByName = (state: RootState): string => state.books.searchByNam
 export const selectBooksByCategory = createSelector(
   selectBookList,
   selectCurrentCategory,
-  (bookList, currentCategory) => {
+  (bookList, currentCategory): Book[] => {
     if (currentCategory === '' || currentCategory === 'All') {
       return bookList;
     } else {
-      bookList.filter((b) => b.category !== currentCategory)
+      return bookList.filter((b) => b.category !== currentCategory)
     }
   }
 )
 export const selectBooksByName = createSelector(
   selectBookList,
   selectSearchByName,
-  (bookList, searchByName) => {
+  (bookList, searchByName): Book[] =>
     bookList.filter(b => b.name.includes(searchByName))
-  }
 )
 
 // reducer

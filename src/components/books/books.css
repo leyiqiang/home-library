@@ -1,50 +1,19 @@
-.booksContainer {
-  display: flex;
-}
-.booksContainer > div {
-  margin-top: 2em;
-  margin-left: 2em;
-  margin-right: 2em;
-}
-
-.booksCategory {
-  display: flex;
-}
-
-.filterTypes {
-  font-weight: bold;
-}
 
 @media (min-width: 851px) {
-  .booksContainer {
-    flex-direction: row;
-  }
 
-  .booksContainer > div {
-    flex-basis: 20%;
-  }
-
-  .booksCategory {
-    border: 1px solid gray;
-    flex-direction: column;
-    align-items: center;
-  }
 }
 
 @media (max-width: 850px) {
-  .booksContainer {
-    flex-direction: column;
-  }
-  .filterTypes {
-    width: 100%;
-  }
-  .booksCategory {
-    flex-direction: row;
-    border: 1px solid gray;
-  }
 
-  .booksContainer > div {
-    margin-top: 2em;
+  .booksFilter {
+    width: 95%;
+    flex-basis: 100%;
+    box-sizing: content-box;
   }
+}
+
+.flex1 {
+  flex: 1 1 auto;
+  box-sizing: content-box;
 }
 

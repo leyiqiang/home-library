@@ -2,19 +2,26 @@ import { useSelector } from 'react-redux';
 import { selectBooksByCategory } from '../../store/books/booksSlice';
 import Filters from './Filters';
 import './books.css'
+import { Container, Row, Col } from 'react-bootstrap';
 
 const Books = () => {
   const bookListByCategory = useSelector(selectBooksByCategory);
   return (
-    <div>
-      <h1>Books</h1>
-      <div className="booksContainer">
-        <Filters/>
-        <div className="booksContent">
+    <Container>
+      <Row>
+        <h1 className="headerNav">Books</h1>
+      </Row>
+      <Row>
+        <Col sm={12} md={4} className='flex-shrink-0'>
+          <Filters/>
+        </Col>
+        <Col sm={12} md={8} className='flex-shrink-0'>
+          <div>
           <h1> Books Component</h1>
-        </div>
-      </div>
-    </div>
+          </div>
+        </Col>
+      </Row>
+    </Container>
 
   )
 }

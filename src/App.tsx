@@ -1,4 +1,3 @@
-import './App.css';
 import SiteRouter from './components/SiteRouter';
 
 function App() {

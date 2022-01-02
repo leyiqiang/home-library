@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import "./books.css"
 import { selectBooksByCategory } from '../../store/books/booksSlice';
 import { Card, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
@@ -6,11 +7,11 @@ import { Link } from 'react-router-dom'
 const BookList = () => {
   const bookListByCategory = useSelector(selectBooksByCategory);
   return (
-    <Row xs={1} md={2} className='g-4'>
+    <Row xs={1} md={3} className='g-4'>
       {bookListByCategory.map((b, idx) => {
         return (
           <Col key={idx}>
-            <Card style={{ width: '18rem' }} >
+            <Card>
               <Card.Img variant="top" src='https://picsum.photos/200/300' className='bookImage'/>
               <Card.Body>
                 <Card.Title><Link to={'/' + b.id}>{b.name}</Link></Card.Title>

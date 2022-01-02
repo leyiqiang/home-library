@@ -9,6 +9,7 @@ const Filters = () => {
   const setCurrentCategoryAction = (category: string): void => {
     dispatch(setCurrentCategory(category));
   }
+
   const renderItems = (name: string, key: string | number) => {
     return (
       <Dropdown.Item
@@ -18,7 +19,6 @@ const Filters = () => {
         {name}
       </Dropdown.Item>);
   }
-
 
   return (
     <div>

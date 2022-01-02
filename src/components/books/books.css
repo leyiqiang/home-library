@@ -1,13 +1,8 @@
-@media (min-width: 851px) {
-
-}
-
-@media (max-width: 850px) {
-
-
-}
-
 .bookFilter.dropdown-menu {
   z-index: 0;
   position: relative;
+}
+
+.bookImage {
+  height: 200px;
 }

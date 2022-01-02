@@ -85,7 +85,7 @@ export const selectBooksByCategory = createSelector(
     if (currentCategory === '' || currentCategory === 'All') {
       return bookList;
     } else {
-      return bookList.filter((b) => b.category !== currentCategory)
+      return bookList.filter((b) => b.category === currentCategory)
     }
   }
 )

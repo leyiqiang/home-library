@@ -1,16 +1,31 @@
 import { useSelector } from 'react-redux';
 import { selectBooksByCategory } from '../../store/books/booksSlice';
+import { Card, Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom'
 
 const BookList = () => {
   const bookListByCategory = useSelector(selectBooksByCategory);
   return (
-    <div>
+    <Row xs={1} md={2} className='g-4'>
       {bookListByCategory.map((b, idx) => {
-        return <div>
-          {b.name}
-        </div>
+        return (
+          <Col key={idx}>
+            <Card style={{ width: '18rem' }} >
+              <Card.Img variant="top" src='https://picsum.photos/200/300' className='bookImage'/>
+              <Card.Body>
+                <Card.Title><Link to={'/' + b.id}>{b.name}</Link></Card.Title>
+                {/*<Card.Subtitle>{b.category}</Card.Subtitle>*/}
+                <Card.Text>
+                  {b.author}
+                </Card.Text>
+                <footer className="text-muted">
+                  {b.category}
+                </footer>
+              </Card.Body>
+            </Card>
+          </Col>)
       })}
-    </div>
+    </Row>
   );
 }
 

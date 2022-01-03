@@ -13,7 +13,7 @@ const BookList = () => {
             <Card>
               <Card.Img variant="top" src='https://picsum.photos/200/300' className='bookImage'/>
               <Card.Body>
-                <Card.Title><Link to={'/' + b.id}>{b.name}</Link></Card.Title>
+                <Card.Title><Link to={'/books/' + b.id}>{b.title}</Link></Card.Title>
                 {/*<Card.Subtitle>{b.category}</Card.Subtitle>*/}
                 <Card.Text>
                   {b.author}

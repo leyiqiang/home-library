@@ -3,11 +3,11 @@ import { RootState } from '../store';
 
 interface Book {
   id: string;
-  name: string;
+  title: string;
   author: string;
   publisher: string;
   importedDate: string;
-  bookLocation: string;
+  location: string;
   category: string;
   isbn: string;
 }
@@ -26,31 +26,31 @@ const initialState: Books = {
   bookList: [
     {
       id: 'EIC0001',
-      name: '2019年中国电力行业投资报告',
+      title: '2019年中国电力行业投资报告',
       author: '南方电网 能源发展研究院',
       publisher: '中国电力出版社',
       importedDate: '2021-7-12',
-      bookLocation: '2',
+      location: '2',
       category: 'Energy Industry Consult',
       isbn: '9787519840846'
     },
     {
       id: 'EIC0002',
-      name: '2019年全球水电行业年度发展报告',
+      title: '2019年全球水电行业年度发展报告',
       author: '国家水电可持续发展 研究中心',
       publisher: '中国水利水电出版社',
       importedDate: '2021-7-12',
-      bookLocation: '2',
+      location: '2',
       category: 'Energy Industry Consult',
       isbn: '9787517089216'
     },
     {
       id: 'In0001',
-      name: 'Sex & The Psych',
+      title: 'Sex & The Psych',
       author: 'Brett Kahr',
       publisher: '华东师范大学出版社',
       importedDate: '2021-7-12',
-      bookLocation: '1',
+      location: '1',
       category: 'Inspiration',
       isbn: '9780141024844'
     }
@@ -66,30 +66,38 @@ export const booksSlice = createSlice({
     setCurrentCategory: (state, action: PayloadAction<string>) => {
       state.currentCategory = action.payload;
     },
-    setSearchByName: (state, action: PayloadAction<string>) => {
+    setSearchByTitle: (state, action: PayloadAction<string>) => {
       state.searchByName = action.payload;
+    },
+    updateBookById: (state, action: PayloadAction<{id:string, newBookInfo:Book}>) => {
+      const {id, newBookInfo} = action.payload;
+      let idx = state.bookList.findIndex(b => b.id === id)
+      if (idx !== -1) {
+        state.bookList[idx] = newBookInfo;
+      }
     },
   }
 })
 
 // actions
-export const { addBook, setCurrentCategory, setSearchByName } = booksSlice.actions;
+export const { addBook, setCurrentCategory, setSearchByTitle } = booksSlice.actions;
 
 // selectors
-const selectBookList = (state: RootState): Book[] => state.books.bookList;
+export const selectBookList = (state: RootState): Book[] => state.books.bookList;
 export const selectBookCategories = (state: RootState): string[] => state.books.categories;
 export const selectCurrentCategory = (state: RootState): string => state.books.currentCategory;
-const selectSearchByName = (state: RootState): string => state.books.searchByName;
+const selectSearchByTitle = (state: RootState): string => state.books.searchByName;
+
 
 export const selectBooksByCategory = createSelector(
   selectBookList,
   selectCurrentCategory,
-  selectSearchByName,
-  (bookList, currentCategory, searchByName): Book[] => {
+  selectSearchByTitle,
+  (bookList, currentCategory, searchByTitle): Book[] => {
     if (currentCategory === '' || currentCategory === 'All') {
-      return bookList.filter((b) => b.name.includes(searchByName));
+      return bookList.filter((b) => b.title.includes(searchByTitle));
     } else {
-      return bookList.filter((b) => b.category === currentCategory && b.name.includes(searchByName))
+      return bookList.filter((b) => b.category === currentCategory && b.title.includes(searchByTitle))
     }
   }
 )

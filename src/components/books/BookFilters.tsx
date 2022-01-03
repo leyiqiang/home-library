@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { selectBookCategories, selectCurrentCategory, setSearchByName } from '../../store/books/booksSlice';
+import { selectBookCategories, selectCurrentCategory, setSearchByTitle } from '../../store/books/booksSlice';
 import { Button, Dropdown, FormControl, InputGroup, ListGroup } from 'react-bootstrap';
 import { setCurrentCategory } from '../../store/books/booksSlice';
 
@@ -21,12 +21,12 @@ const BookFilters = () => {
   }
 
   const onSearchClicked = () => {
-    dispatch(setSearchByName(keyword));
+    dispatch(setSearchByTitle(keyword));
   }
 
   const onClearClicked = () => {
     setKeyword('')
-    dispatch(setSearchByName(''))
+    dispatch(setSearchByTitle(''))
   }
 
   const renderItems = (name: string, key: string | number) => {

@@ -1,17 +1,17 @@
-import Filters from './Filters';
+import BookFilters from '../../components/books/BookFilters';
 import './books.css'
 import { Container, Row, Col } from 'react-bootstrap';
-import BookList from './BookList';
+import BookList from '../../components/books/BookList';
 
 const Books = () => {
   return (
-    <Container>
+    <>
       <Row>
         <h1 className="headerNav">Books</h1>
       </Row>
       <Row>
         <Col sm={12} md={4}>
-          <Filters/>
+          <BookFilters/>
         </Col>
         <Col sm={12} md={8}>
           <div>
@@ -19,7 +19,7 @@ const Books = () => {
           </div>
         </Col>
       </Row>
-    </Container>
+    </>
   )
 }
 

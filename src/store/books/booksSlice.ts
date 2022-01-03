@@ -20,9 +20,9 @@ interface Books {
 }
 
 const initialState: Books = {
-  currentCategory: '',
+  currentCategory: 'All',
   searchByName: '',
-  categories: ['Energy Industry Consult', 'Inspiration'],
+  categories: ['All', 'Energy Industry Consult', 'Inspiration'],
   bookList: [
     {
       id: 'EIC0001',
@@ -65,12 +65,15 @@ export const booksSlice = createSlice({
     },
     setCurrentCategory: (state, action: PayloadAction<string>) => {
       state.currentCategory = action.payload;
-    }
+    },
+    setSearchByName: (state, action: PayloadAction<string>) => {
+      state.searchByName = action.payload;
+    },
   }
 })
 
 // actions
-export const { addBook, setCurrentCategory } = booksSlice.actions;
+export const { addBook, setCurrentCategory, setSearchByName } = booksSlice.actions;
 
 // selectors
 const selectBookList = (state: RootState): Book[] => state.books.bookList;
@@ -81,19 +84,14 @@ const selectSearchByName = (state: RootState): string => state.books.searchByNam
 export const selectBooksByCategory = createSelector(
   selectBookList,
   selectCurrentCategory,
-  (bookList, currentCategory): Book[] => {
+  selectSearchByName,
+  (bookList, currentCategory, searchByName): Book[] => {
     if (currentCategory === '' || currentCategory === 'All') {
-      return bookList;
+      return bookList.filter((b) => b.name.includes(searchByName));
     } else {
-      return bookList.filter((b) => b.category === currentCategory)
+      return bookList.filter((b) => b.category === currentCategory && b.name.includes(searchByName))
     }
   }
-)
-export const selectBooksByName = createSelector(
-  selectBookList,
-  selectSearchByName,
-  (bookList, searchByName): Book[] =>
-    bookList.filter(b => b.name.includes(searchByName))
 )
 
 // reducer

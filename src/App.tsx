@@ -1,4 +1,4 @@
-import SiteRouter from './components/SiteRouter';
+import SiteRouter from './containers/SiteRouter';
 
 function App() {
   return (

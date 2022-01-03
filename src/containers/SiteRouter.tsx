@@ -1,11 +1,12 @@
 import About from './About';
-import User from './User';
+import User from '../components/User';
 import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import BookDetail from './books/BookDetail';
-import BookList from './books/BookList';
+import BookDetail from '../components/books/BookDetail';
+import BookList from '../components/books/BookList';
+import Books from './books/Books';
 
 const SiteRouter = () => {
   return (
@@ -22,7 +23,7 @@ const SiteRouter = () => {
           </Nav>
         </Container>
       </Navbar>
-      <Container>
+      <Container className="pageContainer">
         <Switch>
           <Route exact path="/:bookId">
             <BookDetail/>
@@ -34,7 +35,7 @@ const SiteRouter = () => {
             <User/>
           </Route>
           <Route path="/">
-            <BookList/>
+            <Books/>
           </Route>
         </Switch>
       </Container>

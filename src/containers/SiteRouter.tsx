@@ -1,12 +1,10 @@
-import About from './About';
-import User from './User';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import BookDetail from './books/BookDetail';
 import Books from './books/Books';
 import NavBar from '../components/NavBar';
-import Datasheet from './Datasheet';
 import Reservation from './Reservation';
+import NotFound from './NotFound';
 
 const SiteRouter = () => {
   return (
@@ -17,20 +15,17 @@ const SiteRouter = () => {
           <Route exact path="/books/:bookID">
             <BookDetail/>
           </Route>
-          <Route exact path="/datasheet">
-            <Datasheet/>
-          </Route>
           <Route exact path="/reservation">
             <Reservation/>
           </Route>
-          <Route exact path="/about">
-            <About/>
+          <Route exact path="/">
+            <Redirect to ="/books" />
           </Route>
-          <Route exact path="/user">
-            <User/>
-          </Route>
-          <Route path="/">
+          <Route path="/books">
             <Books/>
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
       </Container>

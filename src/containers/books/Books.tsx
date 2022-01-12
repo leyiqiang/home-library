@@ -1,6 +1,6 @@
 import BookFilters from '../../components/books/BookFilters';
 import './books.css'
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import BookList from '../../components/books/BookList';
 
 const Books = () => {
@@ -9,7 +9,9 @@ const Books = () => {
       <Row>
         <h1 className="headerNav">Books</h1>
       </Row>
+
       <Row>
+
         <Col sm={12} md={4}>
           <BookFilters/>
         </Col>

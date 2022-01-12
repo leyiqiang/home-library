@@ -1,30 +1,67 @@
-import { useSelector } from 'react-redux';
-import { selectBookList } from '../../store/books/booksSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { Book } from '../../store/books/booksSlice';
 import { useHistory, useParams } from 'react-router-dom'
-import BookDetailForm from '../../components/books/BookDetailForm';
-import { Button, Col, Row } from 'react-bootstrap';
+import BookForm from '../../components/books/BookForm';
+import { Row, Spinner } from 'react-bootstrap';
+import { bookInfoByID } from '../../store/books/booksActions';
+import { selectCurrentBook, selectError, selectStatus } from '../../store/books/booksSelectors';
+import { useEffect, useState } from 'react';
+import { STATUS } from '../../utils/constants';
+import { AppDispatch } from '../../store/store';
 
 type BookDetailParams = {
   bookID: string;
 }
 
 const BookDetail = () => {
-  const bookList = useSelector(selectBookList);
-  const {bookID} = useParams<BookDetailParams>();
+  const selectedBook = useSelector(selectCurrentBook);
+  const { bookID } = useParams<BookDetailParams>();
   const history = useHistory();
-  const selectedBook = bookList.find(b => b.id === bookID)
+  const dispatch = useDispatch<AppDispatch>();
+  const bookStatus = useSelector(selectStatus);
+  const error = useSelector(selectError);
+  const [formErrMsg, setFormErrMsg] = useState<string | undefined>(undefined);
+  const [formSuccessMsg, setFormSuccessMsg] = useState<string | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(false);
+  const handleFormSubmit = async (book: Book) => {
+    setIsLoading(true);
+  }
 
+  useEffect(() => {
+    dispatch(bookInfoByID(bookID));
+  }, [])
+
+  let content: JSX.Element | undefined;
+  if (bookStatus === STATUS.LOADING) {
+    content =
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+  } else if (bookStatus === STATUS.IDLE && !error) {
+    content =
+      <>
+        <Row>
+          <h1 className="headerNav">BookInfo</h1>
+        </Row>
+        <Row>
+          {selectedBook ?
+            <BookForm
+              {...selectedBook}
+              onBackClicked={() => history.push('/')}
+              errMsg={formErrMsg}
+              successMsg={formSuccessMsg}
+              isLoading={isLoading}
+              handleFormSubmit={handleFormSubmit}/>
+            :
+            <p>Book Not Found!</p>}
+        </Row>
+      </>
+  } else if (error) {
+    content = <p>Oops, something went wrong: {error}</p>;
+  }
   return (
     <>
-      <Row>
-        <h1 className="headerNav">BookInfo</h1>
-      </Row>
-      <Row>
-        {selectedBook? <BookDetailForm {...selectedBook} /> : <p>Book Not Found!</p>}
-      </Row>
-      <Row>
-        <Button variant="outline-primary" onClick={() => history.push('/')}>Back</Button>
-      </Row>
+      {content}
     </>
   );
 }

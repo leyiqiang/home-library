@@ -8,12 +8,10 @@ const NavBar = () => {
     <>
       <Navbar bg="light" variant="light" fixed="top">
         <Container>
-          <Navbar.Brand as={Link} to="">HomeLibrary</Navbar.Brand>
+          <Navbar.Brand as={Link} to="">Home Library</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link as={Link} to="">Books</Nav.Link>
-            <Nav.Link as={Link} to="/datasheet">Datasheet</Nav.Link>
             <Nav.Link as={Link} to="/reservation">Reservation</Nav.Link>
-            <Nav.Link as={Link} to="/about">About</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link as={Link} to="/user"><FontAwesomeIcon icon={faUser}/> </Nav.Link>
